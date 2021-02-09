@@ -9,6 +9,8 @@ verify_ssl = true
 django = "*"
 flake8 = "*"
 djangorestframework = "*"
+requests = "*"
+lxml = "*"
 
 [requires]
 python_version = "3.6"
