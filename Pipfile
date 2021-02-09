@@ -11,6 +11,7 @@ flake8 = "*"
 djangorestframework = "*"
 requests = "*"
 lxml = "*"
+redis = "*"
 
 [requires]
 python_version = "3.6"
