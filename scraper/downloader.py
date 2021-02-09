@@ -3,6 +3,7 @@ from csv import reader as CSVReader
 from io import BytesIO, TextIOWrapper
 from zipfile import ZipFile
 
+import redis
 import requests
 from const import COPY_TYPE, SUBMIT_KEY
 from lxml import etree
@@ -51,6 +52,8 @@ if __name__ == "__main__":
 
     bhavcopy_zip_resp = session.get(equity_link, headers=REQUEST_HEADERS)
 
+    # the filename will have a '0' appended to single digit dates,
+    # so here we update the date and month
     if len(date) < 2:
         date = f"0{date}"
     if len(month) < 2:
@@ -60,7 +63,21 @@ if __name__ == "__main__":
     # Ref: https://stackoverflow.com/a/66003133/3860168
     zip_ref = ZipFile(BytesIO(bhavcopy_zip_resp.content))
 
+    # ------------------- initialize a connection to redis ------------------- #
+    r = redis.Redis()
+
+    # ------ read csv files from zip and write one row at a time to redis ---- #
     with zip_ref.open(FILENAME) as file_contents:
         reader = CSVReader(TextIOWrapper(file_contents, 'utf-8'), delimiter=',')
-        for row in reader:
-            print(row)
+
+        # redis pipeline buffers all the set commands from client and writes them in one go.
+        with r.pipeline() as pipe:
+
+            for row in reader:
+                print(row)
+                pipe.hmset(
+                        f'code:{date}-{month}-{year}:{row[0]}',
+                        {'name': row[1], 'open': row[4], 'high': row[5],
+                            'low': row[6], 'close': row[7]}
+                        )
+                pipe.execute()
