@@ -39,6 +39,13 @@ INSTALLED_APPS = [
         'django.contrib.staticfiles',
         ]
 
+MY_APPS = [
+        'bhavcopy',
+        'rest_framework'
+        ]
+
+INSTALLED_APPS = INSTALLED_APPS + MY_APPS
+
 MIDDLEWARE = [
         'django.middleware.security.SecurityMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
