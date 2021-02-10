@@ -75,9 +75,10 @@ if __name__ == "__main__":
 
             for row in reader:
                 print(row)
+                stock_name = row[1].strip()
                 pipe.hmset(
-                        f'code:{date}-{month}-{year}:{row[0]}',
-                        {'name': row[1], 'open': row[4], 'high': row[5],
+                        f'{row[0]}:{stock_name}:{date}-{month}-{year}',
+                        {'open': row[4], 'high': row[5],
                             'low': row[6], 'close': row[7]}
                         )
                 pipe.execute()
