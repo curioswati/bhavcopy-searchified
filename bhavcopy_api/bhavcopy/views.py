@@ -48,7 +48,7 @@ def get_record(request, *args, **kwargs):
     item_key = f'{code}:{name}:{date}'
 
     values = get_record_for_keys([item_key])
-    return Response(values)
+    return Response(values, status=200)
 
 
 @api_view(['GET'])
@@ -61,4 +61,4 @@ def get_stock_records(request, *args, **kwargs):
     keys = redis_instance.keys(f'*{name.upper()}*')
     values = get_record_for_keys(keys)
 
-    return Response(values)
+    return Response(values, status=200)
