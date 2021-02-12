@@ -1,19 +1,18 @@
 <template>
     <div class="home">
-        <Bhavcopy />
-        <Results />
+        <Search @loadRecords="result=$event"/>
     </div>
 </template>
 
 <script>
 
-import Bhavcopy from '../components/Bhavcopy';
+import Search from '../components/Search';
 import Results from '../components/Results';
 
 export default {
   name: 'Home',
   components: {
-    Bhavcopy,
+    Search,
     Results,
   },
 }
