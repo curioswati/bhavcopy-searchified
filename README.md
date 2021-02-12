@@ -35,6 +35,8 @@ An application to make BSE's bhavcopy data searchable.
 * Update the Django secret key in `bhavcopy_api/bhavcopy_api/settings.py` for production.
 * Create a file in `Scraper/` called `settings.py` and add following:   
 
+      HOME_URL = https://www.bseindia.com/markets/MarketInfo/BhavCopy.aspx
+      DATA_DIR = /path/to/data/directory
       REQUEST_HEADERS = {
         'User-Agent': '<Your User Agent>',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -45,6 +47,10 @@ An application to make BSE's bhavcopy data searchable.
         'Cache-Control': 'max-age=0',
         'TE': 'Trailers',
       }
+      
+* Create a `data` directory as follows to store `zip` files in your filesystem      
+
+        mkdir -p data/zip data/csv
 
 ### Setup - Development Run
 
@@ -52,7 +58,9 @@ An application to make BSE's bhavcopy data searchable.
 
       redis-server
       cd scraper
-      python downloader.py dd-mm-yyyy
+      python downloader.py dd mm yyyy
+      python extractor.py dd mm yyyy
+      python loader.py dd mm yyyy
 
 * Start Vue   
 
