@@ -1,11 +1,11 @@
 <template>
 <div class="container">
-    <div class="row">
-        <div class="col-md-12" style="height:5vh;"></div>
-    </div>
-    <div class="row">
+
+    <div class="row search">
         <div class="col-md-1"></div>
+
         <div class="col-md-10">
+
             <form autocomplete="off">
                 <div class="autocomplete input-group mb-3">
                     <input
@@ -20,9 +20,12 @@
                     <li v-for="item in suggestions" @click="getRecords" class="dropdown-item" :value=item>{{ item }}</li>
                 </ul>
             </form>
+
         </div>
+
         <div class="col-md-1"></div>
     </div>
+
 </div>
 </template>
 
@@ -39,10 +42,17 @@ export default {
     },
     methods: {
         getRecords: function(event) {
+
+            // get the current clicked stock name
             let stock_name = event.target.innerHTML;
+
             axios.get('/api/records?name=' + stock_name).then(
                 response => {
+
+                  // send the received data to the parent component to insert in results.
                   this.$emit('loadRecords', response.data)
+
+                  // remove the dropdown list when we selected an option.
                   this.suggestions = null;
                 }
             );
@@ -56,13 +66,19 @@ export default {
                 );
             }
             else {
-                  this.suggestions = null;
+
+                // clear previous suggestion list when the search box is empty.
+                this.suggestions = null;
             }
         },
     }
 }
 </script>
+
 <style scoped>
+    .search {
+        margin-top: 5vh;
+    }
     .stock-list {
         margin-top: -18px;
         border-radius: 0 0 5px 5px;

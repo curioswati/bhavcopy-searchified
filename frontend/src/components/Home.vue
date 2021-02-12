@@ -1,7 +1,7 @@
 <template>
     <div class="home">
         <Search @loadRecords="result=$event"/>
-        <Results :result="result"/>
+        <Results v-if="result.records" :result="result"/>
     </div>
 </template>
 
