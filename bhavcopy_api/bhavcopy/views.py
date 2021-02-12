@@ -80,4 +80,22 @@ def get_stock_records(request, *args, **kwargs):
 
     return Response({"name": name, "records": [keys, values]}, status=200)
 
+
+@api_view(['GET'])
+def autocomplete(request, *args, **kwargs):
+    '''
+    Return stock names for the input term.
+    '''
+    term = request.GET.get('term')
+
+    # get all matching keys from redis for the input term.
+    keys = redis_instance.keys(f'*{term.upper()}*')
+
+    stock_names = []
+
+    for key in keys:
+        name = key.decode('utf-8').split(':')[-2]
+        if name not in stock_names:
+            stock_names.append(name)
+
     return Response(stock_names, status=200)
