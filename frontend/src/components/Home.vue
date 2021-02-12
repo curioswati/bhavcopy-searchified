@@ -1,6 +1,7 @@
 <template>
     <div class="home">
         <Search @loadRecords="result=$event"/>
+        <Results :result="result"/>
     </div>
 </template>
 
@@ -14,6 +15,11 @@ export default {
   components: {
     Search,
     Results,
+  },
+  data: function () {
+    return {
+        result: {}
+    }
   },
 }
 </script>
