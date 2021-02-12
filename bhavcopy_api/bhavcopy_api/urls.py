@@ -15,7 +15,13 @@ Including another URLconf
 """
 from bhavcopy.views import autocomplete, get_record, get_stock_records
 from django.contrib import admin
+from django.http import HttpResponse
+from django.shortcuts import render
 from django.urls import include, path
+
+vue_urls = [
+        path('', lambda request: HttpResponse(render(request, 'vue_index.html'))),
+        ]
 
 api_urls = [
         path('autocomplete', autocomplete, name='autocomplete'),
@@ -25,5 +31,6 @@ api_urls = [
 
 urlpatterns = [
         path('admin/', admin.site.urls),
+        path('', include(vue_urls)),
         path('api/', include(api_urls)),
         ]
