@@ -14,26 +14,43 @@ def get_record_for_keys(keys):
     [key1, key2]
 
     Output:
-    {
-        "key1": {
-            "field1": "value1",
-            "field2": "value2",
-        },
-        "key2": {
-            "field1": "value1",
-            "field2": "value2",
-        }
-    }
+    [
+            "date",
+            "open",
+            "high",
+            "low",
+            "close",
+    ],
+    [
+            "dd-mm-yyyy",
+            "value1",
+            "value2",
+            "value3",
+            "value4",
+    ]
     '''
-    all_values = {}
+    all_values = []
     for key in keys:
+
+        # if we received the key as a result of autocomplete search, it is going to be bytes.
+        # need to utf decode it first and extract date
         if not isinstance(key, str):
             key = key.decode('utf-8')
+            date = key.split(':')[-1]
 
+        # fetch field:value pairs for the key from the redis hash.
         values = redis_instance.hgetall(key.upper())
-        values = {key.decode('utf-8'): value.decode('utf-8') for (key, value) in values.items()}
-        all_values[key] = values
-    return all_values
+
+        # decode all values(i.e. numbers only, we don't need the field names) and store in a list.
+        values_list = [item.decode('utf-8') for item in values.values()]
+        values_list.insert(0, date)
+        all_values.append(values_list)
+
+    # explicitly putting date in the result, as we don't store it in the hash's data.
+    keys = [key.decode('utf-8') for key in values.keys()]
+    keys.insert(0, 'date')
+
+    return keys, all_values
 
 
 @api_view(['GET'])
@@ -47,8 +64,8 @@ def get_record(request, *args, **kwargs):
 
     item_key = f'{code}:{name}:{date}'
 
-    values = get_record_for_keys([item_key])
-    return Response(values, status=200)
+    keys, values = get_record_for_keys([item_key])
+    return Response({"name": name, "records": [keys, values]}, status=200)
 
 
 @api_view(['GET'])
@@ -59,6 +76,8 @@ def get_stock_records(request, *args, **kwargs):
     name = request.GET.get('name')
 
     keys = redis_instance.keys(f'*{name.upper()}*')
-    values = get_record_for_keys(keys)
+    keys, values = get_record_for_keys(keys)
 
-    return Response(values, status=200)
+    return Response({"name": name, "records": [keys, values]}, status=200)
+
+    return Response(stock_names, status=200)
