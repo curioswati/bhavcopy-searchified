@@ -1,2 +1,4 @@
 COPY_TYPE = 'rbteqty'
 SUBMIT_KEY = 'Submit'
+CSV_FILENAME_FORMAT = 'EQ%s%s%s.CSV'
+ZIP_FILENAME_FORMAT = 'EQ-%s%s%s_CSV.zip'
