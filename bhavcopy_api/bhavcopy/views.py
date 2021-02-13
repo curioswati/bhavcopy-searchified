@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 import redis
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -79,6 +81,21 @@ def get_stock_records(request, *args, **kwargs):
     keys, values = get_record_for_keys(keys)
 
     return Response({"name": name, "records": [keys, values]}, status=200)
+
+
+@api_view(['GET'])
+def get_yesterdays_records(request, *args, **kwargs):
+    '''
+    Returns all details for all the stocks on previous day.
+    '''
+    yesterday = datetime.today() - timedelta(days=1)
+    date = datetime.strftime(yesterday, '%d-%m-%Y')
+
+    keys = redis_instance.keys(f'*{date}*')
+
+    keys, values = get_record_for_dates(keys[:20])
+
+    return Response({"name": '', "records": [keys, values]}, status=200)
 
 
 @api_view(['GET'])
