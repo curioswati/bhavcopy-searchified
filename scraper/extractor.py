@@ -27,7 +27,7 @@ if __name__ == "__main__":
     filepath = os.path.join(DATA_DIR, 'csv', filename)
     if os.path.exists(filepath):
         print(f'\nAlready extracted {zip_name}, exiting...\n')
-        sys.exit(1)
+        sys.exit(0)
 
     # ------------- Read the zip and extract CSV file --------- #
 

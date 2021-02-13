@@ -21,7 +21,7 @@ if __name__ == "__main__":
 
     if os.path.exists(filepath):
         print('\n Data already downloaded, exiting...\n')
-        sys.exit(1)
+        sys.exit(0)
 
     # - setup request session, we use it throughout all subsequent requests -- #
     session = requests.Session()
@@ -49,13 +49,18 @@ if __name__ == "__main__":
 
     api_response = session.post(HOME_URL, data=params, headers=REQUEST_HEADERS)
     api_dom = etree.HTML(api_response.text)
-    equity_link = api_dom.xpath(EQUITY_LINK_XPATH)[0].get('href')
+    equity_link_elem = api_dom.xpath(EQUITY_LINK_XPATH)
 
-    # ---- request the zip file and save it to disk ------------------- #
+    if equity_link_elem:
+        equity_link = equity_link_elem[0].get('href')
 
-    bhavcopy_zip_resp = session.get(equity_link, headers=REQUEST_HEADERS)
+        # ---- request the zip file and save it to disk ------------------- #
 
-    with open(filepath, 'wb') as zip_file:
-        zip_file.write(bhavcopy_zip_resp.content)
+        bhavcopy_zip_resp = session.get(equity_link, headers=REQUEST_HEADERS)
 
-    print(f'Downloaded {filename}')
+        with open(filepath, 'wb') as zip_file:
+            zip_file.write(bhavcopy_zip_resp.content)
+
+        print(f'Downloaded {filename}')
+    else:
+        print(f'Failed to get the link for zip, response: {api_response.text}')
