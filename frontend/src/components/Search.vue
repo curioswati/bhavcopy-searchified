@@ -12,9 +12,9 @@
                     name="search" class="form-control form-control-lg" type="text" placeholder="Type in a stock name..." aria-label="Search"
                     v-model="searchTerm" @keyup="autocomplete"
                     />
-                    <div class="input-group-append">
+                    <!--div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="submit" name="submit" v-on:click.prevent="getRecords">Go!</button>
-                    </div>
+                    </div-->
                 </div>
                 <ul v-if="suggestions" class="list-unstyled stock-list">
                     <li v-for="item in suggestions" @click="getRecords" class="dropdown-item" :value=item>{{ item }}</li>
@@ -61,7 +61,7 @@ export default {
             if (this.searchTerm) {
                 axios.get('/api/autocomplete?term=' + this.searchTerm).then(
                     response => {
-                      this.suggestions = response.data;
+                        this.suggestions = response.data;
                     }
                 );
             }
