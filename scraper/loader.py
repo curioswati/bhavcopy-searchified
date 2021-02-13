@@ -44,7 +44,7 @@ if __name__ == "__main__":
             # term2: {stock_name1}
 
             # all substrings from the stock_name starting with the first three letters
-            possible_search_terms = [stock_name[:x] for x in range(3, len(stock_name))]
+            possible_search_terms = [stock_name[:x] for x in range(2, len(stock_name))]
 
             for term in possible_search_terms:
                 pipe.sadd(term, stock_name)

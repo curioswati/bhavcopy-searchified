@@ -13,7 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from bhavcopy.views import autocomplete, get_record, get_stock_records
+from bhavcopy.views import (autocomplete, get_record, get_stock_records,
+                            get_yesterdays_records)
 from django.contrib import admin
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -26,7 +27,8 @@ vue_urls = [
 api_urls = [
         path('autocomplete', autocomplete, name='autocomplete'),
         path('record', get_record, name='single_record'),
-        path('records', get_stock_records, name='all_for_one')
+        path('records', get_stock_records, name='all_for_one'),
+        path('', get_yesterdays_records, name='yesterdays_records')
         ]
 
 urlpatterns = [
