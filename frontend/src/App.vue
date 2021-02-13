@@ -23,4 +23,9 @@ export default {
 </script>
 
 <style>
+
+    .bg-site-primary {
+        background: lightgreen !important;
+    }
+
 </style>

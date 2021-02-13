@@ -1,5 +1,5 @@
 <template>
-  <header class="header" id="header">
+  <header class="header bg-site-primary" id="header">
       <p class="title text-center">{{ title }}</p>
   </header>
 </template>
@@ -16,7 +16,6 @@
 
 <style scoped>
     header {
-        background: lightgreen;
         padding: 15px;
         box-shadow: 2px 2px 5px 1px #f1f1f1;
     }

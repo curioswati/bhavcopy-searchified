@@ -1,11 +1,26 @@
 <template>
 <div class="container">
 
-    <div class="row stock-name">
+    <div v-if="result.name" class="row stock-name">
+        <div class="col-md-9">
+            <div class="row">
+                <!-- Name of the stock -->
+                <h2>{{ result.name }}</h2>
+            </div>
+        </div>
+        <div class="col-md-3 download">
+                <button type="button" class="btn bg-site-primary action_btn float-right" v-on:click="downloadCSVData">
+                  DOWNLOAD CSV
+                </button>
+        </div>
+
+    </div>
+
+    <div v-if="!result.name" class="row stock-name">
         <div class="col-md-12"></div>
 
         <!-- Name of the stock -->
-        <h2>{{ result.name }}</h2>
+        <h4>Yesterday's Highlights</h4>
 
     </div>
 
@@ -16,7 +31,7 @@
         <table class="table">
             <caption>Prices are in Rs.</caption>
 
-            <thead class="thead thead-dark">
+            <thead class="thead bg-offwhite">
                 <tr>
                     <!-- Result Key: Date -->
                     <th>{{ result.records[0][0].toUpperCase() }}</th>
@@ -51,6 +66,23 @@
                 required: true
             }
         },
+        methods: {
+            // Ref: https://stackoverflow.com/a/58293004/3860168
+
+            downloadCSVData: function() {
+                let csv = 'Date,Code,Open,High,Low,Close\n';
+                this.result.records[1].forEach((row) => {
+                    csv += row.join(',');
+                    csv += "\n";
+                });
+
+                const anchor = document.createElement('a');
+                anchor.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+                anchor.target = '_blank';
+                anchor.download = 'EQ-' + this.result.name + '.csv';
+                anchor.click();
+            }
+        }
     }
 </script>
 
@@ -58,5 +90,11 @@
     .stock-name {
         margin-top: 50px;
         padding: 10px;
+    }
+    .bg-offwhite {
+        background: #f2f2f2;
+    }
+    .download button {
+        box-shadow: 2px 2px 5px 1px #f1f1f1;
     }
 </style>
