@@ -5,7 +5,7 @@
         <div class="col-md-12"></div>
 
         <!-- Name of the stock -->
-        <h2>{{ result.name }}</h2>
+        <h4>Yesterday's Highlights</h4>
 
     </div>
 
@@ -16,7 +16,7 @@
         <table class="table">
             <caption>Prices are in Rs.</caption>
 
-            <thead class="thead thead-dark">
+            <thead class="thead bg-offwhite">
                 <tr>
                     <!-- Result Key: Date -->
                     <th>{{ result.records[0][0].toUpperCase() }}</th>
@@ -58,5 +58,8 @@
     .stock-name {
         margin-top: 50px;
         padding: 10px;
+    }
+    .bg-offwhite {
+        background: #f2f2f2;
     }
 </style>
