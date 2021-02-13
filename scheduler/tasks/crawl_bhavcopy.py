@@ -2,6 +2,7 @@
 Crawler DAG definition.
 '''
 
+import os
 from datetime import datetime, timedelta
 from os import path
 from string import Template
@@ -10,7 +11,7 @@ from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
 
 PROJECT_PATH = path.abspath(path.join(path.dirname(__file__), '../../scraper'))
-DATA_PATH = path.abspath(path.join(PROJECT_PATH, 'data'))
+DATA_PATH = path.abspath(os.environ['SCRAPER_DATA_DIR'])
 
 DEFAULT_ARGS = {
     'owner': 'airflow',
