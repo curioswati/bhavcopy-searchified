@@ -34,69 +34,14 @@ An application to make BSE's bhavcopy data searchable.
       npm install
 
 
-### Setup - Configuration
+### Setup - Development
+
+See the detailed instructions in [Development-Setup](https://github.com/curioswati/bhavcopy-searchified/wiki/Development-Setup) guide.
+
+
+### Setup - Deployment
 
 * Update the Django secret key in `bhavcopy_api/bhavcopy_api/settings.py` for production.
-* Create a file in `Scraper/` called `settings.py` and add following:   
-
-      HOME_URL = https://www.bseindia.com/markets/MarketInfo/BhavCopy.aspx
-      DATA_DIR = /path/to/data/directory     # This should be the path of the location where you want to store the data, appended with the name 'data'.
-      REQUEST_HEADERS = {
-        'User-Agent': '<Your User Agent>',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
-        'Referer': 'https://www.bseindia.com/markets/MarketInfo/BhavCopy.aspx',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'Cache-Control': 'max-age=0',
-        'TE': 'Trailers',
-      }
-
-* Create a file `.env` in the current directory i.e. repository root and add following    
-
-      AIRFLOW_HOME=airflow
-      AIRFLOW_ADMIN=<username-for-airflow-admin>
-      AIRFLOW_ADMIN_FNAME=<Firstname for airflow admin>
-      AIRFLOW_ADMIN_LNAME=<Lastname for airflow admin>
-      AIRFLOW_ADMIN_EMAIL=<admin email for airflow>
-      SCRAPER_DATA_DIR=/path/to/data   # same as set in scraper/settings.py
-
-* initialize `airflow`     
-
-      . scheduler/init_airflow.sh
-      
-* It should create a directory named `airflow` in the current directory, inside that is `airflow.cfg`, open it and edit the following variable
-
-      dags_folder = /path/to/scheduler/tasks
-
-* If you do not want to manage the crawling with `airflow` then create the following directories in the path set in `scraper/settings.py`     
-
-      mkdir -p data/zip data/csv
-      
-### Setup - Development Run
-
-* To locally scrape and store the data    
-
-      redis-server
-      cd scraper
-      python downloader.py dd mm yyyy
-      python extractor.py dd mm yyyy
-      python loader.py dd mm yyyy
-
-* Start Vue   
-
-      cd frontend
-      npm run serve
-      npm run watch (optionally in a separate terminal to live reload the changes)
-
-* Start Django    
-
-      cd bhavcopy_api
-      python manage.py runserver
-
-The App should be live on `localhost: 8000`.
-
-### Setup - Production
 
 * build the frontend
 
@@ -110,6 +55,4 @@ This will create a `build/` directory inside the `frontend` which you can direct
       cd bhavcopy-api
       python manage.py collectstatic
 
-### Setup- Deployment
-
-TODO
+* For setting up airflow, follow the [Airflow production automation](https://github.com/curioswati/bhavcopy-searchified/wiki/Aifrlow-production-automation) guide.
