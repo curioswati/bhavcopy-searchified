@@ -69,6 +69,9 @@ export default {
 
                 // clear previous suggestion list when the search box is empty.
                 this.suggestions = null;
+
+                // get the latest records' data stored in localStorage
+                this.$emit('loadRecords', JSON.parse(localStorage.getItem('result')))
             }
         },
     }

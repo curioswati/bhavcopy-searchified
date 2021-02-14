@@ -23,10 +23,13 @@ export default {
         }
     },
     methods: {
-        loadRecords: function(event) {
+        loadRecords: function() {
             axios.get('/api/').then(
                 response => {
                     this.result = response.data;
+
+                    // store the latest records' data in localStorage to load when there is no stock searched
+                    localStorage.setItem("result", JSON.stringify(response.data));
                 }
             );
         }
