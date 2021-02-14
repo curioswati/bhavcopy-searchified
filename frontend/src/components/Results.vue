@@ -20,7 +20,7 @@
         <div class="col-md-12"></div>
 
         <!-- Name of the stock -->
-        <h4>Latest Highlights</h4>
+        <h4>Latest BSE Highlights</h4>
 
     </div>
 
@@ -43,7 +43,7 @@
             <tbody>
                 <tr v-for="record in result.records[1]" :key="record">
                     <!-- dd-mm-yyyy of the record -->
-                    <td>{{ record[0] }}</td>
+                    <th>{{ record[0] }}</th>
 
                     <!-- numerical values -->
                     <td v-for="value in record.slice(1,)" :key="value" class="text-center">{{ value }}</td>

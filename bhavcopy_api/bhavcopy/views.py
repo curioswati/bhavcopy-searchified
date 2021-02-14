@@ -128,6 +128,9 @@ def get_stock_records(request, *args, **kwargs):
 
     dates = redis_instance.smembers(f'{name}')
 
+    # sort the dates
+    dates = sorted(dates, key=lambda date: datetime.strptime(date.decode('utf-8'), '%d-%m-%Y'))
+
     keys = [f"{name}:{date.decode('utf-8')}" for date in dates]
     keys, values = get_record_for_stocks(keys)
 
