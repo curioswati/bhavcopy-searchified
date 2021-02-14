@@ -17,7 +17,7 @@
                     </div-->
                 </div>
                 <ul v-if="suggestions" class="list-unstyled stock-list">
-                    <li v-for="item in suggestions" @click="getRecords" class="dropdown-item" :value=item>{{ item }}</li>
+                    <li v-for="item in suggestions" :key="item" @click="getRecords" class="dropdown-item" :value=item>{{ item }}</li>
                 </ul>
             </form>
 

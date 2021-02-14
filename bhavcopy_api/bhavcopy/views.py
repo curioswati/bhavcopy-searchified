@@ -135,12 +135,27 @@ def get_stock_records(request, *args, **kwargs):
 
 
 @api_view(['GET'])
-def get_yesterdays_records(request, *args, **kwargs):
+def get_latest_records(request, *args, **kwargs):
     '''
-    Returns all details for all the stocks on previous day.
+    Returns all details for all the stocks latest available.
     '''
-    yesterday = datetime.today() - timedelta(days=1)
-    date = datetime.strftime(yesterday, '%d-%m-%Y')
+    now = datetime.now()
+    weekday = now.weekday()
+
+    # If it's a weekday
+    if weekday < 5:
+
+        # If the time is before 6PM IST, then we show yesterday's records
+        if now.hour < 13:
+            date = now - timedelta(days=1)
+        else:
+            # We show today's records
+            date = now
+    else:
+        # We show last friday's records
+        date = now + timedelta(days=(4-weekday))
+
+    date = datetime.strftime(date, '%d-%m-%Y')
 
     keys = redis_instance.keys(f'*{date}*')
 

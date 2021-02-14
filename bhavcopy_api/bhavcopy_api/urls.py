@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from bhavcopy.views import (autocomplete, get_record, get_stock_records,
-                            get_yesterdays_records)
+                            get_latest_records)
 from django.contrib import admin
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -28,7 +28,7 @@ api_urls = [
         path('autocomplete', autocomplete, name='autocomplete'),
         path('record', get_record, name='single_record'),
         path('records', get_stock_records, name='all_for_one'),
-        path('', get_yesterdays_records, name='yesterdays_records')
+        path('', get_latest_records, name='latest_records')
         ]
 
 urlpatterns = [

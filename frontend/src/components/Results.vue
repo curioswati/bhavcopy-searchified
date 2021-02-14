@@ -20,7 +20,7 @@
         <div class="col-md-12"></div>
 
         <!-- Name of the stock -->
-        <h4>Yesterday's Highlights</h4>
+        <h4>Latest Highlights</h4>
 
     </div>
 
@@ -37,16 +37,16 @@
                     <th>{{ result.records[0][0].toUpperCase() }}</th>
 
                     <!-- Rest of the numerical result keys -->
-                    <th v-for="key in result.records[0].slice(1,)" class="text-center">{{ key.toUpperCase() }}</th>
+                    <th v-for="key in result.records[0].slice(1,)" :key="key" class="text-center">{{ key.toUpperCase() }}</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="record in result.records[1]">
+                <tr v-for="record in result.records[1]" :key="record">
                     <!-- dd-mm-yyyy of the record -->
                     <td>{{ record[0] }}</td>
 
                     <!-- numerical values -->
-                    <td v-for="value in record.slice(1,)" class="text-center">{{ value }}</td>
+                    <td v-for="value in record.slice(1,)" :key="value" class="text-center">{{ value }}</td>
                 </tr>
             </tbody>
         </table>
