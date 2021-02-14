@@ -12,6 +12,7 @@ djangorestframework = "*"
 requests = "*"
 lxml = "*"
 redis = "*"
+apache-airflow = {extras = ["crypto", "password"], version = "*"}
 
 [requires]
 python_version = "3.6"
