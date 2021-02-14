@@ -10,7 +10,7 @@ An application to make BSE's bhavcopy data searchable.
    - Storage: Redis  
    - Frontend: Vue.js  
    
-#### Live at: [to-do]
+#### Live at: [http://bhavcopy.swatij.me/](http://bhavcopy.swatij.me/)
 
 (_Note: The setup instructions below assume basic understanding of Pipenv, Django and Vue or in general node environment_ and are specific to ubuntu based environments).
 ### Setup - Installation:
@@ -25,6 +25,17 @@ An application to make BSE's bhavcopy data searchable.
       sudo pip install pipenv
       
 * Redis installation: https://redis.io/topics/quickstart
+
+      wget http://download.redis.io/redis-stable.tar.gz
+      tar xvzf redis-stable.tar.gz
+      cd redis-stable
+      make
+      make install
+      sudo mkdir /etc/redis
+      sudo mkdir /var/redis
+      sudo cp utils/redis_init_script /etc/init.d/redis_6379
+      sudo cp redis.conf /etc/redis/6379.conf
+      sudo mkdir /var/redis/6379
 
 * Clone the repository    
 
@@ -65,7 +76,18 @@ An application to make BSE's bhavcopy data searchable.
       AIRFLOW_ADMIN_LNAME=<Lastname for airflow admin>
       AIRFLOW_ADMIN_EMAIL=<admin email for airflow>
       SCRAPER_DATA_DIR=/path/to/data   # same as set in scraper/settings.py
-   
+
+* After creating the above file, deactivate the env and reactivate
+
+      exit
+      pipenv shell
+
+* Redis: update /etc/redis/6379.conf
+
+      daemonize yes
+      logfile /var/log/redis_6379.log
+      dir /var/redis/6379
+
 ### Setup - Development
 
 See the detailed instructions in [Development-Setup](https://github.com/curioswati/bhavcopy-searchified/wiki/Development-Setup) guide.
@@ -73,18 +95,4 @@ See the detailed instructions in [Development-Setup](https://github.com/curioswa
 
 ### Setup - Deployment
 
-* Update the Django secret key in `bhavcopy_api/bhavcopy_api/settings.py` for production.
-
-* build the frontend
-
-      cd frontend
-      npm run build
-
-This will create a `build/` directory inside the `frontend` which you can directly use on the production.
-
-* collect static files for django to serve    
-
-      cd bhavcopy-api
-      python manage.py collectstatic
-
-* For setting up airflow, follow the [Airflow production automation](https://github.com/curioswati/bhavcopy-searchified/wiki/Aifrlow-production-automation) guide.
+See the detailed instructions in [Production-Setup](https://github.com/curioswati/bhavcopy-searchified/wiki/Production-Setup) guide.
