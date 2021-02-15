@@ -143,20 +143,29 @@ def get_latest_records(request, *args, **kwargs):
     Returns all details for all the stocks latest available.
     '''
     now = datetime.now()
-    weekday = now.weekday()
+    day = now.weekday()
 
-    # If it's a weekday
-    if weekday < 5:
+    # If it's weekend
+    if day in [5, 6]:
 
-        # If the time is before 6PM IST, then we show yesterday's records
-        if now.hour < 13:
-            date = now - timedelta(days=1)
-        else:
-            # We show today's records
-            date = now
-    else:
         # We show last friday's records
-        date = now + timedelta(days=(4-weekday))
+        date = now + timedelta(days=(4-day))
+
+    # If it's monday and time is before 6PM IST
+    elif day == 0 and now.hour < 13:
+
+        # We show last friday's records
+        date = now + timedelta(days=-3)
+
+    # If the time is before 6PM IST, then we show yesterday's records
+    elif now.hour < 13:
+
+        # We show yesterday's records
+        date = now - timedelta(days=1)
+
+    else:
+        # We show today's records
+        date = now
 
     date = datetime.strftime(date, '%d-%m-%Y')
 
