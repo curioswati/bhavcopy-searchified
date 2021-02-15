@@ -24,14 +24,18 @@ export default {
     },
     methods: {
         loadRecords: function() {
-            axios.get('/api/').then(
-                response => {
-                    this.result = response.data;
+            this.result = JSON.parse(localStorage.getItem("result"));
 
-                    // store the latest records' data in localStorage to load when there is no stock searched
-                    localStorage.setItem("result", JSON.stringify(response.data));
-                }
-            );
+            if (!this.result) {
+                axios.get('/api/').then(
+                    response => {
+                        this.result = response.data;
+
+                        // store the latest records' data in localStorage to load when there is no stock searched
+                        localStorage.setItem("result", JSON.stringify(response.data));
+                    }
+                );
+            }
         }
     },
     created: function() {
