@@ -37,16 +37,16 @@
                     <th>{{ result.records[0][0].toUpperCase() }}</th>
 
                     <!-- Rest of the numerical result keys -->
-                    <th v-for="key in result.records[0].slice(1,)" :key="key" class="text-center">{{ key.toUpperCase() }}</th>
+                    <th v-for="key, index in result.records[0].slice(1,)" :key="index" class="text-center">{{ key.toUpperCase() }}</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="record in result.records[1]" :key="record">
+                <tr v-for="record, index in result.records[1]" :key="index">
                     <!-- dd-mm-yyyy of the record -->
                     <th>{{ record[0] }}</th>
 
                     <!-- numerical values -->
-                    <td v-for="value in record.slice(1,)" :key="value" class="text-center">{{ value }}</td>
+                    <td v-for="value, index in record.slice(1,)" :key="index" class="text-center">{{ value }}</td>
                 </tr>
             </tbody>
         </table>
