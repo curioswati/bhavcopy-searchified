@@ -19,6 +19,9 @@ export default {
       Home,
       Footer,
   },
+  created: function () {
+      document.title = 'Bhavcopy Searchified';
+  }
 }
 </script>
 
