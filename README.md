@@ -12,6 +12,16 @@ An application to make BSE's bhavcopy data searchable.
    
 #### Live at: [http://bhavcopy.swatij.me/](http://bhavcopy.swatij.me/)
 
+#### Search API
+
+You can access the API at: http://bhavcopy.swatij.me/api/
+
+Endpoints:
+
+      * http://bhavcopy.swatij.me/api/record?name=<name_of_stock>&date=<dd-m-yyyy>
+      * http://bhavcopy.swatij.me/api/records?name=<name_of_stock>
+      * http://bhavcopy.swatij.me/api
+
 (_Note: The setup instructions below assume basic understanding of Pipenv, Django and Vue or in general node environment_ and are specific to ubuntu based environments).
 ### Setup - Installation:
 
