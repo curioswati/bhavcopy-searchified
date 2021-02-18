@@ -151,21 +151,16 @@ def get_latest_records(request, *args, **kwargs):
         # We show last friday's records
         date = now + timedelta(days=(4-day))
 
-    # If it's monday and time is before 6PM IST
-    elif day == 0 and now.hour < 13:
+    # If it's monday
+    elif day == 0:
 
         # We show last friday's records
         date = now + timedelta(days=-3)
 
-    # If the time is before 6PM IST, then we show yesterday's records
-    elif now.hour < 13:
+    else:
 
         # We show yesterday's records
         date = now - timedelta(days=1)
-
-    else:
-        # We show today's records
-        date = now
 
     date = datetime.strftime(date, '%d-%m-%Y')
 
