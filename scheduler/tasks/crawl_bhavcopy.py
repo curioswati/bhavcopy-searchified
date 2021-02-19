@@ -23,7 +23,7 @@ DEFAULT_ARGS = {
 
 with DAG('crawl_bhavcopy',
          default_args=DEFAULT_ARGS,
-         schedule_interval='30 12 * * 1-5',  # the timezone is UTC here.
+         schedule_interval='30 12 * * 0-4',  # the timezone is UTC here.
          catchup=True
          ) as dag:
 
@@ -36,7 +36,7 @@ with DAG('crawl_bhavcopy',
 
     # Ref: https://airflow.apache.org/macros.html for the jinja variables used below.
     DOWNLOADER_COMMAND = Template("""
-        cd $project_path && python downloader.py {{ execution_date.strftime('%d %m %Y') }}
+        cd $project_path && python downloader.py {{ (execution_date + macros.timedelta(days=1)).strftime('%d %m %Y') }}
     """)
 
     DOWNLOADER_TASK = BashOperator(
@@ -45,7 +45,7 @@ with DAG('crawl_bhavcopy',
     )
 
     EXTRACTOR_COMMAND = Template("""
-        cd $project_path && python extractor.py {{ execution_date.strftime('%d %m %Y') }}
+        cd $project_path && python extractor.py {{ (execution_date + macros.timedelta(days=1)).strftime('%d %m %Y') }}
     """)
 
     EXTRACTOR_TASK = BashOperator(
@@ -54,7 +54,7 @@ with DAG('crawl_bhavcopy',
     )
 
     LOADER_COMMAND = Template("""
-        cd $project_path && python loader.py {{ execution_date.strftime('%d %m %Y') }}
+        cd $project_path && python loader.py {{ (execution_date + macros.timedelta(days=1)).strftime('%d %m %Y') }}
     """)
 
     LOADER_TASK = BashOperator(
