@@ -31,7 +31,7 @@ Endpoints:
 
 ### Setup
 
-Note: The setup instructions can be found in the [ReadMe](https://github.com/curioswati/bhavcopy-searchified/tree/master#readme).
+Note: The setup instructions can be found in the [README](https://github.com/curioswati/bhavcopy-searchified/tree/master#readme).
 
 ### Support or Contact
 
