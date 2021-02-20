@@ -1,37 +1,38 @@
-## Welcome to GitHub Pages
+# bhavcopy-searchified
+An application to make BSE's bhavcopy data searchable.
 
-You can use the [editor on GitHub](https://github.com/curioswati/bhavcopy-searchified/edit/master/docs/index.md) to maintain and preview the content for your website in Markdown files.
+#### Source of Data: [BSE Bhavcopy](https://www.bseindia.com/markets/MarketInfo/BhavCopy.aspx)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+#### Tech Stack:   
 
-### Markdown
+   - Scraping: python-requests and lxml  
+   - Backend API: Django & Django Rest Framework  
+   - Storage: Redis  
+   - Frontend: Vue.js  
+   
+#### Live at: [http://bhavcopy.swatij.me/](http://bhavcopy.swatij.me/)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Usage Instruction
 
-```markdown
-Syntax highlighted code block
+* The homepage by default shows the latest BSE stock values for the last working day.
+* Start typing a stock name and you will get suggestions in a drop down.
+* Click on any of the stock and you can see the results below the search box. These are sorted by date.
+* You can also download the result as a CSV by cliking on the 'Download' button there on top right.
 
-# Header 1
-## Header 2
-### Header 3
+#### Search API
 
-- Bulleted
-- List
+You can access the API at: http://bhavcopy.swatij.me/api/
 
-1. Numbered
-2. List
+Endpoints:
 
-**Bold** and _Italic_ and `Code` text
+      * http://bhavcopy.swatij.me/api/record?name=<name_of_stock>&date=<dd-m-yyyy>
+      * http://bhavcopy.swatij.me/api/records?name=<name_of_stock>
+      * http://bhavcopy.swatij.me/api
 
-[Link](url) and ![Image](src)
-```
+### Setup
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/curioswati/bhavcopy-searchified/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+Note: The setup instructions can be found in the [ReadMe](https://github.com/curioswati/bhavcopy-searchified/tree/master#readme).
 
 ### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+If you want to report the software, need help or want to suggest changes you can [raise an issue](https://github.com/curioswati/bhavcopy-searchified/issues/new) on github.
