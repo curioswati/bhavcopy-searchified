@@ -1,4 +1,4 @@
-# bhavcopy-searchified
+# Bhavcopy Searchified
 An application to make BSE's bhavcopy data searchable.
 
 #### Source of Data: [BSE Bhavcopy](https://www.bseindia.com/markets/MarketInfo/BhavCopy.aspx)
