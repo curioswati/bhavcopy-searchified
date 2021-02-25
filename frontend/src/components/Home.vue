@@ -59,8 +59,17 @@ export default {
 <style scoped>
 
 .msg {
+    margin-top: 100px;
     padding: 20px 0;
     text-align: center;
-    font-size: 0.9em;
+    font-size: 14px;
+}
+@media (max-width: 576px) {
+    .home {
+        font-size: 9px;
+    }
+    .msg {
+        font-size: 9px;
+    }
 }
 </style>

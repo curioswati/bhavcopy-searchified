@@ -2,12 +2,12 @@
     <footer class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <p class="copyleft text-center float-left ">{{ copyleft }}</p>
+                <div class="col-md-4 col-10">
+                    <p class="copyleft float-left text-lg">{{ copyleft }}</p>
                     <p class="source text-center float-left">{{ source_msg }} <a :href=source_url target="_blank">{{ source_name }}</a></p>
                 </div>
-                <div class="col-md-4"></div>
-                <div class="col-md-4">
+                <div class="col-md-4 d-none d-md-block"></div>
+                <div class="col-md-4 col-2">
                     <ul class="list-unstyled list-inline float-right">
                         <li>
                         <a href="https://github.com/curioswati/bhavcopy-searchified" aria-hidden="true" role="link" target="_blank">
@@ -60,5 +60,17 @@
     }
     footer p, footer ul {
         margin-bottom: 0;
+    }
+
+    @media (max-width: 576px) {
+        .copyleft {
+            font-size: 0.8em;
+        }
+        .source {
+            font-size: 0.6em;
+        }
+        footer .fa {
+            font-size: 18px;
+        }
     }
 </style>
