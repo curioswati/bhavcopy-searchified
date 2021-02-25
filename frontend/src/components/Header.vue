@@ -27,4 +27,13 @@
         font-size: 2.4em;
         font-family: Arial;
     }
+    @media (max-width: 576px) {
+        header {
+            padding: 10px;
+            padding-bottom: 1px;
+        }
+        .title {
+            font-size: 1em;
+        }
+    }
 </style>

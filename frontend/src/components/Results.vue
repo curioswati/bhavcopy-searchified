@@ -2,13 +2,13 @@
 <div class="container">
 
     <div v-if="result.name" class="row stock-name">
-        <div class="col-md-9">
+        <div class="col-md-9 col-8">
             <div class="row">
                 <!-- Name of the stock -->
-                <h2>{{ result.name }}</h2>
+                <span>{{ result.name }}</span>
             </div>
         </div>
-        <div class="col-md-3 download">
+        <div class="col-md-3 col-4 download">
                 <button type="button" class="btn bg-site-primary action_btn float-right" v-on:click="downloadCSVData">
                   DOWNLOAD CSV
                 </button>
@@ -26,6 +26,7 @@
 
     <div class="row">
 
+        <div class="col">
         <div class="table-responsive">
 
         <table class="table">
@@ -51,6 +52,7 @@
             </tbody>
         </table>
 
+        </div>
         </div>
 
     </div>
@@ -90,11 +92,23 @@
     .stock-name {
         margin-top: 50px;
         padding: 10px;
+        font-size: 28px;
+        font-weight: bolder;
+        margin-left: 0;
     }
     .bg-offwhite {
         background: #f2f2f2;
     }
     .download button {
         box-shadow: 2px 2px 5px 1px #f1f1f1;
+    }
+    @media (max-width: 576px) {
+        .stock-name {
+            font-size: 12px;
+        }
+        .download button {
+            font-size: 8px;
+            padding: 5px;
+        }
     }
 </style>
