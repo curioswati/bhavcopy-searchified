@@ -4,6 +4,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <p class="copyleft text-center float-left ">{{ copyleft }}</p>
+                    <p class="source text-center float-left">{{ source_msg }} <a :href=source_url target="_blank">{{ source_name }}</a></p>
                 </div>
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
@@ -24,7 +25,10 @@
     export default {
         data: function() {
             return {
-                copyleft: "Copyleft 2021 Bhavcopy Searchified"
+                copyleft: "Copyleft 2021 Bhavcopy Searchified",
+                source_msg: "Data is sourced from",
+                source_name: "BSE",
+                source_url: "https://www.bseindia.com/markets/MarketInfo/BhavCopy.aspx",
             }
         }
     }
@@ -42,6 +46,10 @@
     .copyleft {
         color: lightgreen;
         font-size: 1em;
+    }
+    .source {
+        color: white;
+        font-size: 0.8em;
     }
     .fa {
         color: lightgreen;
