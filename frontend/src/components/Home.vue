@@ -38,7 +38,7 @@ export default {
         loadRecords: function() {
             this.result = JSON.parse(localStorage.getItem("result"));
 
-            if (!this.result) {
+            if (this.result == null || this.result.records.length < 1) {
                 axios.get('/api/').then(
                     response => {
                         this.result = response.data;

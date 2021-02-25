@@ -26,6 +26,17 @@
         <div class="col-md-1"></div>
     </div>
 
+    <div v-if="recent" class="recent row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            Recently searched stocks:
+            <button v-for="term, index in recent" :key="index" @click="getRecords" class="recent-term badge badge-light">
+            {{term}}
+            </button>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+
 </div>
 </template>
 
@@ -38,19 +49,36 @@ export default {
         return {
             searchTerm: '',
             suggestions: null,
+            recent: JSON.parse(localStorage.getItem("recent"))
         }
     },
     methods: {
         getRecords: function(event) {
-
             // get the current clicked stock name
-            let stock_name = event.target.innerHTML;
+            let stock_name = event.target.innerHTML.trim();
 
             axios.get('/api/records?name=' + stock_name).then(
                 response => {
 
                   // send the received data to the parent component to insert in results.
                   this.$emit('loadRecords', response.data)
+
+                  // get the recent search terms from local storage
+                  let recent = JSON.parse(localStorage.getItem("recent"));
+
+                  // if local storage doesn't have any recent searches, add the current one.
+                  if (recent == null || Object.entries(recent).length == 0) {
+                      recent = [stock_name];
+                      localStorage.setItem("recent", JSON.stringify(recent));
+                  }
+                  // update the localstorage's search terms with the current one.
+                  else if (!recent.includes(stock_name)) {
+                      if (recent.length > 7) {
+                          recent.shift();
+                      }
+                      recent.push(stock_name)
+                      localStorage.setItem("recent", JSON.stringify(recent));
+                  }
 
                   // remove the dropdown list when we selected an option.
                   this.suggestions = null;
@@ -82,6 +110,16 @@ export default {
     .search {
         margin-top: 5vh;
     }
+    .recent {
+        padding-left: 18px;
+    }
+    .recent-term {
+        margin: 0 0.8%;
+        padding: 1% 1%;
+        box-shadow: 1px 1px 3px 1px #f1f1f1;
+        border: none;
+        font-size: 11px;
+    }
     .stock-list {
         margin-top: -18px;
         border-radius: 0 0 5px 5px;
@@ -89,5 +127,13 @@ export default {
     .stock-list li {
         padding: 15px 15px;
         box-shadow: 2px 2px 10px 2px #f1f1f1;
+    }
+    @media (max-width: 576px) {
+        .search .form-control {
+            font-size: 10px;
+        }
+        .recent-term {
+            font-size: 8px;
+        }
     }
 </style>
