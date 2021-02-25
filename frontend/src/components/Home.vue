@@ -1,7 +1,19 @@
 <template>
     <div class="home">
         <Search @loadRecords="result=$event"/>
-        <Results v-if="result.records" :result="result"/>
+        <Results v-if="result.records.length > 0" :result="result"/>
+
+        <div v-else class="container">
+            <div class="row">
+                <div class="col-md-12">
+                <p class="msg text-danger">
+                <span>There was some problem in fetching latest records from BSE.</span>
+                <br>
+                <span>You can still search for a specific stock above and get old records.</span>
+                </p>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -45,4 +57,10 @@ export default {
 </script>
 
 <style scoped>
+
+.msg {
+    padding: 20px 0;
+    text-align: center;
+    font-size: 0.9em;
+}
 </style>

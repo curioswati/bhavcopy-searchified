@@ -166,9 +166,14 @@ def get_latest_records(request, *args, **kwargs):
 
     keys = redis_instance.keys(f'*{date}*')
 
-    keys, values = get_record_for_dates(keys[:20])
+    # if no records for the given date.
+    if not keys:
+        data = {"name": '', "records": []}
+    else:
+        keys, values = get_record_for_dates(keys[:20])
+        data = {"name": '', "records": [keys, values]}
 
-    return Response({"name": '', "records": [keys, values]}, status=200)
+    return Response(data, status=200)
 
 
 @api_view(['GET'])
