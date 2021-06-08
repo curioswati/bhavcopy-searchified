@@ -1,0 +1,8 @@
+django
+flake8
+djangorestframework
+requests
+lxml
+redis
+whitenoise
+gunicorn
