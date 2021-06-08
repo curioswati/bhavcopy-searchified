@@ -1,11 +1,22 @@
 from datetime import datetime, timedelta
+from urllib.parse import urlparse
 
 import redis
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-redis_instance = redis.Redis()
+from bhavcopy_api.settings import REDIS_URL
 
+url = urlparse(REDIS_URL)
+redis_instance = redis.StrictRedis(
+        host=url.hostname,
+        port=url.port,
+        username=url.username,
+        password=url.password,
+        ssl=True,
+        ssl_cert_reqs=None,
+        db=0
+    )
 
 def get_record_for_stocks(keys):
     '''
