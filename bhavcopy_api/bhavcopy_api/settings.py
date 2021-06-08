@@ -62,7 +62,7 @@ ROOT_URLCONF = 'bhavcopy_api.urls'
 TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': [os.path.join(BASE_DIR, '../frontend/build/templates')],
+            'DIRS': [os.path.join(BASE_DIR, '../build')],
             'APP_DIRS': True,
             'OPTIONS': {
                 'context_processors': [
@@ -134,5 +134,5 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, '../frontend/build/static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, '../build/static')]
