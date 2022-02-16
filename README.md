@@ -10,7 +10,7 @@ An application to make BSE's bhavcopy data searchable.
    - Storage: Redis  
    - Frontend: Vue.js  
    
-#### Live at: [http://bhavcopy.swatij.me/](http://bhavcopy.swatij.me/)
+#### Live at: [http://bhavcopy-searchified.herokuapp.com/](http://bhavcopy-searchified.herokuapp.com/)
 
 #### Search API
 
